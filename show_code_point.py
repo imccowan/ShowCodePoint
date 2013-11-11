@@ -1,5 +1,7 @@
 import sublime_plugin
 
+from unicodedata import name
+
 
 class ShowCodePoint(sublime_plugin.TextCommand):
 
@@ -14,8 +16,9 @@ class ShowCodePoint(sublime_plugin.TextCommand):
             if self.view.get_status(statusKey):
                 self.view.erase_status(statusKey)
             else:
-                statusStr = "[<{0}> {1:d}, Hex {1:x}, Octal {1:o}]".format(
-                                char, ord(char))
+                statusStr = "{0} [<{1}> {2:d}, Hex {2:x}, Octal {2:o}]".format(
+                    name(char), char, ord(char)
+                )
                 self.view.set_status(statusKey, statusStr)
 
 
